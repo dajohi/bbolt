@@ -42,14 +42,14 @@ lint:
 .PHONY: test
 test:
 	@echo "hashmap freelist test"
-	TEST_FREELIST_TYPE=hashmap go test -v ${TESTFLAGS} -timeout ${TESTFLAGS_TIMEOUT}
-	TEST_FREELIST_TYPE=hashmap go test -v ${TESTFLAGS} ./internal/...
-	TEST_FREELIST_TYPE=hashmap go test -v ${TESTFLAGS} ./cmd/bbolt
+	TEST_FREELIST_TYPE=hashmap go test -race -v ${TESTFLAGS} -timeout ${TESTFLAGS_TIMEOUT}
+	TEST_FREELIST_TYPE=hashmap go test -race -v ${TESTFLAGS} ./internal/...
+	TEST_FREELIST_TYPE=hashmap go test -race -v ${TESTFLAGS} ./cmd/bbolt
 
 	@echo "array freelist test"
-	TEST_FREELIST_TYPE=array go test -v ${TESTFLAGS} -timeout ${TESTFLAGS_TIMEOUT}
-	TEST_FREELIST_TYPE=array go test -v ${TESTFLAGS} ./internal/...
-	TEST_FREELIST_TYPE=array go test -v ${TESTFLAGS} ./cmd/bbolt
+	TEST_FREELIST_TYPE=array go test -race -v ${TESTFLAGS} -timeout ${TESTFLAGS_TIMEOUT}
+	TEST_FREELIST_TYPE=array go test -race -v ${TESTFLAGS} ./internal/...
+	TEST_FREELIST_TYPE=array go test -race -v ${TESTFLAGS} ./cmd/bbolt
 
 .PHONY: coverage
 coverage:
@@ -76,8 +76,8 @@ install-gofail:
 .PHONY: test-failpoint
 test-failpoint:
 	@echo "[failpoint] hashmap freelist test"
-	TEST_FREELIST_TYPE=hashmap go test -v ${TESTFLAGS} -timeout 30m ./tests/failpoint
+	TEST_FREELIST_TYPE=hashmap go test -race -v ${TESTFLAGS} -timeout 30m ./tests/failpoint
 
 	@echo "[failpoint] array freelist test"
-	TEST_FREELIST_TYPE=array go test -v ${TESTFLAGS} -timeout 30m ./tests/failpoint
+	TEST_FREELIST_TYPE=array go test -race -v ${TESTFLAGS} -timeout 30m ./tests/failpoint
 
